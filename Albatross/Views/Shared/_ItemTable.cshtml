@@ -1,0 +1,41 @@
+@model IEnumerable<Item>
+
+<div class="container">
+
+<table class='table table-striped'>
+<tr>
+<th>Id</th>
+<th>Name</th>
+<th>Image</th>
+<th>Actions</th>
+</tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>@item.ItemId</td>
+        <td>
+            <a asp-controller="Item"
+            asp-action="Details"
+            asp-route-id="@item.ItemId">@item.Name</a>
+    </td>
+    <td>@item.Type</td>
+    <td>
+    URL: @item.ImageUrl
+    <img src="@item.ImageUrl" alt="imgitem" style="max-width: 80px; max-height: 80px;"/>
+    </td>
+
+    <td>
+        <a asp-action="Update" asp-route-id="@item.ItemId">Update</a>
+        <a asp-action="Delete" asp-route-id="@item.ItemId">Delete</a>
+    </td>
+    </tr>
+}
+</table>
+
+<p>
+<a class="btn btn-secondary"
+asp-controller="Item"
+asp-action="Create">Create new Item</a>
+</p>
+</div>

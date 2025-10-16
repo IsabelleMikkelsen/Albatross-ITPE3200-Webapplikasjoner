@@ -1,0 +1,22 @@
+@using Albatross.ViewModels
+
+@model ItemsViewModel
+
+<h1>List of Items (@Model.CurrentViewName View)</h1>
+<a href="/Item/Grid">Grid View</a>
+
+<div class="container">
+    <table class='table table-striped'>
+        <tr><th>Id</th><th>Name</th><th>Type</th><th>Images</th></tr>
+        @foreach(var item in Model.Items)
+        {
+            <tr>
+                <td>@item.ItemId</td>
+                <td>@item.Name</td>
+                <td>@item.Type</td>
+                <td>@item.ImageUrl</td>
+                <td></td>
+            </tr>
+        }
+    </table>
+</div>

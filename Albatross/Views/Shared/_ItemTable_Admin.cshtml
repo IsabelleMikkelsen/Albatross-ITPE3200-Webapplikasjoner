@@ -1,11 +1,12 @@
 @model IEnumerable<Item>
 
 <div class="container">
-
+<h3>Admin item table</h1>
 <table class='table table-striped'>
 <tr>
 <th>Id</th>
 <th>Name</th>
+<th>Type</th>
 <th>Image</th>
 <th>Actions</th>
 </tr>
@@ -14,14 +15,10 @@
 {
     <tr>
         <td>@item.ItemId</td>
-        <td>
-            <a asp-controller="Item"
-            asp-action="Details"
-            asp-route-id="@item.ItemId">@item.Name</a>
-    </td>
+        <td>@item.Name</td>
     <td>@item.Type</td>
     <td>
-    URL: @item.ImageUrl
+    <!---URL: @item.ImageUrl-->
     <img src="@item.ImageUrl" alt="imgitem" style="max-width: 80px; max-height: 80px;"/>
     </td>
 

@@ -4,6 +4,7 @@
 
 @model ModuleTopViewModel
 
+
 <h1>List of ModuleTopics (@Model.CurrentViewName View)</h1>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,28 +16,16 @@
   </head>
 
   <body>
-    <div class="container">
+
+<div class="container">
       <details>
-        <summary>Accordion 1</summary>
-
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Neque velit
-          assumenda facilis molestias, itaque qui voluptatum labore a.
-        </p>
-
-        <p>
-          Eligendi quisquam dolore adipisci aperiam reiciendis placeat
-          praesentium labore doloribus? Nam repellat delectus sed beatae laborum
-          molestiae aperiam officiis?
-        </p>
-      </details>
-      @foreach (var ModuleTopic in Model.ModuleTopics)
-      {
-        <details>
-        <summary>@ModuleTopic.ModuleTopicName</summary>
-        <p>Test</p>
-        </details>
-      }
+        <summary>Demo accordion <strong>[Edit] [Delete All]</strong></summary>
+        <p> Game 1 <strong>[Edit] | [Delete]</strong></p>
+        <p> Game 2 <strong>[Edit] | [Delete]</strong></p>
+    
+    <p><Strong>[Create new game]</Strong></p>
+    </details>
+      
       @await Html.PartialAsync("_ModuleTable_Admin", Model.ModuleTopics) <!--//*-->
 
 

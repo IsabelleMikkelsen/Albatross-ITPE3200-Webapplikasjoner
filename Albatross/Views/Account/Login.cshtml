@@ -2,7 +2,9 @@
     ViewData["Title"] = "Logg inn";
 }
 
-<div class="login-container mt-5 mb-5" style="max-width: 400px;">
+
+<div class="d-flex justify-content-center align-items-center min-vh-100">
+<div class="login-container mt-5 mb-5" style="max-width: 600px; width: 90%">
     <div class="card p-4 shadow-sm border-0">
         <h2 class="text-center mb-4" fw-bold>Logg inn</h2>
         <form>
@@ -25,7 +27,7 @@
   
   </form>
   <p class="text-center mt-3">
-      Har du ikke bruker? <a href="#">Registrer deg</a>
+      Har du ikke bruker? <a asp-controller="Account" asp-action="Register"> Registrer deg</a>
   </p>
 
     </div>

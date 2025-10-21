@@ -42,6 +42,15 @@ public class AccountController : Controller
         var hash = sha256.ComputeHash(bytes);
         return Convert.ToBase64String(hash);
     }
+    [HttpPost]
+    public IActionResult Register(string username, string password)
+    {
+        
+        //TO DO: Save user to DB
+        return RedirectToAction("Dashboard", "User");
+    }
+
+    
 
     //Login
     public IActionResult Login()

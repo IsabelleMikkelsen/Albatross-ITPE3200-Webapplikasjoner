@@ -1,8 +1,20 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+<div class="home" id="home">
+    <section class="flex">
+        <div class="content">
+        <h3><span>Welcome to Albatross</span> learn Albainan Today</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore eos saepe cum esse officiis perferendis, mollitia eum, nemo quia facere omnis expedita doloribus velit laboriosam, iste minima eius amet sapiente?</p>
+        <a class="btn btn-primary" asp-controller="Account" asp-action="Register">Registrer deg</a>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+        </div>
+        <div class="image">
+           <img src="@Url.Content("~/images/blob-image.png")" alt="blob image" />
+
+        </div>
+    </section>
 </div>
+
+
+

@@ -1,0 +1,42 @@
+@{
+    ViewData["Title"] = "Registrer deg";
+}
+<<<<<<< HEAD
+<div class="d-flex justify-content-center align-items-center min-vh-100">
+    <div class="register-container" style="max-width: 800px; width: 100%;">
+=======
+<div class="register-container mt-5 mb-5" style="max-width: 400px;">
+>>>>>>> 22f2c358fb0b496b9827bd2b6bc742f69e0c2291
+    <div class="card p-4 shadow-sm border-0">
+        <h2 class="text-center mb-4 fw-bold">Registrer deg</h2>
+        <form method="post" asp-action="Register" asp-controller="Account">
+  
+    <div class="mb-3">
+      <label for="username" class="form-label mt-4">Brukernavn</label>
+      <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" required>
+    </div>
+    <div class="mb-3">
+      <label for="email" class="form-label mt-4">Email address</label>
+      <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Enter email" required>
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label mt-4">Password</label>
+      <input type="password" class="form-control" id="password" name="password" placeholder="Password" autocomplete="off" required>
+    </div>
+    <div class="d-grid mt-4">  
+        <button type="submit" class="btn btn-primary w-100">Registrer deg</button>
+    </div>
+  
+  </form>
+  <p class="text-center mt-3">
+<<<<<<< HEAD
+    Har du allerede en bruker?
+    <a asp-controller="Account" asp-action="Login">Logg inn</a>
+ </p>
+
+=======
+      Har du allerede en bruker? <a asp-controller="Account" asp-action="Login">Logg inn</a>
+  </p>
+>>>>>>> 22f2c358fb0b496b9827bd2b6bc742f69e0c2291
+
+    </div>

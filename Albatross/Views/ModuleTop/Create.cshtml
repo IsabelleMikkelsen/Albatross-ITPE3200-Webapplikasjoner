@@ -1,0 +1,35 @@
+@using Albatross.Models
+@model ModuleTopic
+
+<!--http://localhost:5093/Item/create-->
+<h2>Create new ModuleTopic</h2>
+
+<form asp-action="Create">
+
+<div class="form-group">
+<label asp-for="ModuleTopicName">ModuleTopic name</label><span class="text-danger">*</span>
+<input asp-for="ModuleTopicName" class="form-control" />
+<span asp-validation-for="ModuleTopicName" class="text-danger"></span>
+</div>
+
+<button type="submit" class="btn btn-primary">Create</button>
+<a asp-action="Table" class="btn btn-secondary">Back to Table View</a>
+</form>
+
+<!--(a)using Albatross.Models
+(a)model ModuleTopic
+
+<h2>Create new Module</h2>
+
+<form asp-action="Create">
+
+<div class="form-group">
+<label asp-for="ModuleName">Name</label><span class="text-danger">*</span>
+<input asp-for="ModuleName" class="form-control" />
+<span asp-validation-for="ModuleName" class="text-danger"></span>
+</div>
+
+<button type="submit" class="btn btn-primary">Create</button>
+<a asp-action="Table" class="btn btn-secondary">Back to Table View</a>
+</form>-->
+

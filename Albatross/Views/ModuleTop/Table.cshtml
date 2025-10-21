@@ -1,0 +1,47 @@
+<!--https://www.w3schools.com/howto/howto_js_accordion.asp--->
+<!--https://w3things.com/blog/accessible-html-accordion/--->
+@using Albatross.ViewModels
+
+@model ModuleTopViewModel
+
+<h1>List of ModuleTopics (@Model.CurrentViewName View)</h1>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Accessible Accordion</title>
+    <link rel="stylesheet"  href="~/css/accordion.css"  />
+  </head>
+
+  <body>
+    <div class="container">
+      <details>
+        <summary>Accordion 1</summary>
+
+        <p>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Neque velit
+          assumenda facilis molestias, itaque qui voluptatum labore a.
+        </p>
+
+        <p>
+          Eligendi quisquam dolore adipisci aperiam reiciendis placeat
+          praesentium labore doloribus? Nam repellat delectus sed beatae laborum
+          molestiae aperiam officiis?
+        </p>
+      </details>
+      @foreach (var ModuleTopic in Model.ModuleTopics)
+      {
+        <details>
+        <summary>@ModuleTopic.ModuleTopicName</summary>
+        <p>Test</p>
+        </details>
+      }
+      @await Html.PartialAsync("_ModuleTable_Admin", Model.ModuleTopics) <!--//*-->
+
+
+
+    </div>
+  </body>
+</html>
+

@@ -1,0 +1,29 @@
+/*https://w3things.com/blog/accessible-html-accordion/*/
+/*Accordion*/
+details {
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.12);
+
+  > div,
+  > p {
+    margin: 0;
+    padding: 0 16px 16px;
+  }
+
+  &:not(:last-child) {
+    margin-bottom: 16px;
+  }
+}
+
+details[open] summary {
+  margin-bottom: 16px;
+}
+
+summary {
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 150ms ease-in-out;
+  padding: 16px;
+}

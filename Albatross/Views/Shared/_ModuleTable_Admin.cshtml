@@ -1,5 +1,12 @@
 @model IEnumerable<ModuleTopic>
 
+@foreach (var ModuleTopic in Model)
+      {
+        <details>
+        <summary>@ModuleTopic.ModuleTopicName</summary>
+        <p>Legg oppgavetabell her</p>
+        </details>
+      }
 
 <p>
 <a class="btn btn-secondary"

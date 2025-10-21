@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+/*using Microsoft.AspNetCore.Mvc;
 using Albatross.Models;
 using Albatross.ViewModels;
 using Microsoft.EntityFrameworkCore;
@@ -32,7 +32,7 @@ public class ModuleTopController : Controller
         return View(ItemsViewModel);
     }
 */
-    public async Task<IActionResult> Details(int id)
+    /*public async Task<IActionResult> Details(int id)
     {
         //List<Item> items = _itemDbContext.Items.ToList();
         var moduleTopic = await _DbContext.ModuleTopics.FirstOrDefaultAsync(i => i.ModuleTopicId == id);
@@ -67,7 +67,7 @@ public class ModuleTopController : Controller
         return View(item);
     }
 */
-    [HttpGet]
+   /* [HttpGet]
     public IActionResult Create()
     {
         return View();
@@ -109,4 +109,4 @@ public class ModuleTopController : Controller
         await _itemDbContext.SaveChangesAsync(); //await
         return RedirectToAction(nameof(Table));
     }*/
-}
+//}

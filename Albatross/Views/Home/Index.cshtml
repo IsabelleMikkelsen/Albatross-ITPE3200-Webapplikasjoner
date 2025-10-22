@@ -1,20 +1,33 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-<div class="home" id="home">
-    <section class="flex">
-        <div class="content">
-        <h3><span>Welcome to Albatross</span> learn Albainan Today</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore eos saepe cum esse officiis perferendis, mollitia eum, nemo quia facere omnis expedita doloribus velit laboriosam, iste minima eius amet sapiente?</p>
-        <a class="btn btn-primary" asp-controller="Account" asp-action="Register">Registrer deg</a>
+
+<section class= "home py-5" id="home">
+    <section class="container d-flex flex-column flex-lg-row align-items-center justify-content-between">
+          
+        <div class="content col-lg-6 mb-5 mb-lg-0">
+            <h1 class= "fw-bold text-teal mb-3">
+                <span class ="text">Welcome to Albatross</span><br/>
+                Learn Albanian Through Adventure!
+            </h1>
+            <p class="lead text-muted mb-4">
+                Pack your bags and begin your journey across the heart of Albania.  
+                Discover the language, culture, and history through fun challenges and  
+                interactive stories guided by your digital travel companion.
+            </p>
+            <p class="text-muted">
+            Earn points, unlock new outfits for your avatar, and see how far your jurney takes you!
+            Are you ready to start your adventure?
+            </p>
+            <a class ="btn btn-success btn-lg mt-3 px-4" asp-controller="Account" asp-action="Register">Start Your Adventure</a>
 
         </div>
-        <div class="image">
-           <img src="@Url.Content("~/images/blob-image.png")" alt="blob image" />
 
+        <div class="image col-lg-5 text-center">
+            <img src="@Url.Content("~/images/blob-image.png")" 
+            alt="Albatross Adventure Illustration" 
+            class="img-fluid"/>
         </div>
     </section>
-</div>
-
-
+</section>
 

@@ -25,10 +25,16 @@
     
     <p><Strong>[Create new game]</Strong></p>
     </details>
+    
+    @foreach (var ModuleTopic in Model.ModuleTopics)
+      {
+        <details>
+        <summary>@ModuleTopic.ModuleTopicName</summary>
+        <p>Legg oppgavetabell her</p>
+        </details>
+      }
       
       @await Html.PartialAsync("_ModuleTable_Admin", Model.ModuleTopics) <!--//*-->
-
-
 
     </div>
   </body>

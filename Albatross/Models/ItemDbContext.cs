@@ -31,4 +31,7 @@ public class ItemDbContext : DbContext
     {
         optionsBuilder.UseLazyLoadingProxies();
     }*/
+
+    //Nulls
+    public DbSet<NullModuleTopic> NullModuleTopics { get; set; }
 }

@@ -20,7 +20,7 @@ public class NullModuleTopController : Controller
     public async Task<IActionResult> Table()
     {
         List<NullModuleTopic> NullModuleTopics = await _DbContext.NullModuleTopics.ToListAsync();
-        var NullModuleTopViewModel = new ModuleTopViewModel(NullModuleTopics, "Table");
+        var NullModuleTopViewModel = new NullModuleTopViewModel(NullModuleTopics, "Table");
         return View(NullModuleTopViewModel);
     }
 

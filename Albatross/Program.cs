@@ -5,6 +5,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using Albatross.Models;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,12 +21,24 @@ builder.Services.AddDbContext<ItemDbContext>(options => {
 //Setting up user authentication and identity management
 builder.Services.AddDefaultIdentity<User>(options => 
 {
-    options.SignIn.RequireConfirmedAccount = false
-    }).AddEntityFrameworkStores<ItemDbContext>();
+    //doesnt require email confirmation
+    options.SignIn.RequireConfirmedAccount = false;
+    //but requires unique email for users
+    options.User.RequireUniqueEmail = true;
+
+    //password requirements, false for simplicity of MVP
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequiredLength = 4;
+
+    })
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<ItemDbContext>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -44,7 +57,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
+
 app.MapDefaultControllerRoute();
 
 /* Kommenteres ut ved bruk av seed / DBINIT

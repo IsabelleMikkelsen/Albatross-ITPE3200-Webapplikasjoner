@@ -5,80 +5,81 @@ using Albatross.Models;              // Access to our own Models
 using System.Security.Cryptography;  // Access to cryptographic algorithms
 using System.Text;  
 using System.Linq;
+using Microsoft.AspNetCore.Identity;
 
 
 namespace Albatross.Controllers;
 
 public class AccountController : Controller
 {
+    //Injecting UserManager and SignInManager
+    //Handles creating, deleting, and managing users
+    private readonly UserManager<User> _userManager;
+    //Handles login, logout, and authentication cookies for users
+    private readonly SignInManager<User> _signInManager;
+
+    //Constructor for injecting UserManager and SignInManager
+    public AccountController(
+        UserManager<User> userManager,
+        SignInManager<User> signInManager)
+        {
+            _userManager = userManager;
+            _signInManager = signInManager;
+        }
     //Registration - New user
     public IActionResult Register()
     {
         return View();
     }
-    //Handling registrationdata
+    //Handling registration data
     [HttpPost]
-    public IActionResult Register(User user)
+    public async Task<IActionResult> Register(User user)
     {
         if (!ModelState.IsValid)
         {
-        return View(user);   //Errormessage?
+        return View(user);
         }
 
-        //Password hashing
-        user.PasswordHashed = HashPassword(user.Password);
+        //Hashes/salts pw, saves to DB, validates pw strength, handles duplicate emails/usernames
+        var result = await _userManager.CreateAsync(user, user.PasswordHash);
+        if (result.Succeeded)
+        {
+            await _signInManager.SignInAsync(user, isPersistent: false);
+            return RedirectToAction("Dashboard", "User");
+        }
+        foreach (var error in result.Errors)
+        {
+            ModelState.AddModelError(string.Empty, error.Description);
+        }
 
-        //TO DO: Save user in database
-        //db.Users.Add(user);
-        //db.SaveChanges();
-
-        return RedirectToAction("Login");
+        return View(user);
     }
-
-    private string HashPassword(string password)
-    {
-        using var sha256 = SHA256.Create();
-        var bytes = Encoding.UTF8.GetBytes(password);
-        var hash = sha256.ComputeHash(bytes);
-        return Convert.ToBase64String(hash);
-    }
-    [HttpPost]
-    public IActionResult Register(string username, string password)
-    {
-        
-        //TO DO: Save user to DB
-        return RedirectToAction("Dashboard", "User");
-    }
-
-    
 
     //Login
     public IActionResult Login()
     {
         return View();
     }
-/*
+
     [HttpPost]
-    public IActionResult Login(string username, string password)
+    public async Task<IActionResult> Login(string username, string password)
     {
-        //TO DO: Get user from DB based on username
-       /* var user = db.Users.FirstOrDefault(u => u.Username == username);
-
-        if (user != null && user.PasswordHashed == HashPassword(password))
+        var result = await _signInManager.PasswordSignInAsync(username, password, false, false);
+        
+        if (result.Succeeded)
         {
-            //TO DO: Session/cookie setup
-
             return RedirectToAction("Index", "Home");
         }
-
+        
         ModelState.AddModelError("", "Wrong username or password");
         return View();
     }
 
-    //Log out
-    public IActionResult Logout()
+    //Logout
+    [HttpPost]
+    public async Task<IActionResult> Logout()
     {
-        //TO DO: Clear session/cookie
+        await _signInManager.SignOutAsync();
         return RedirectToAction("Login");
-    } */
+    }
 }

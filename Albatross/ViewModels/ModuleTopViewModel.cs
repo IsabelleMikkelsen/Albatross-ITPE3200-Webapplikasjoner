@@ -14,5 +14,9 @@ namespace Albatross.ViewModels
             ModuleTopics = moduleTopics;
             CurrentViewName = currentViewName;
         }
+
+        public ModuleTopViewModel(List<NullModuleTopic> nullModuleTopics, string v)
+        {
+        }
     }
 }

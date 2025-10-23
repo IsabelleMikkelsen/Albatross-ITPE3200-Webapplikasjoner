@@ -17,6 +17,12 @@ builder.Services.AddDbContext<ItemDbContext>(options => {
         builder.Configuration["ConnectionStrings:ItemDbContextConnection"]);
 });
 
+//Setting up user authentication and identity management
+builder.Services.AddDefaultIdentity<User>(options => 
+{
+    options.SignIn.RequireConfirmedAccount = false
+    }).AddEntityFrameworkStores<ItemDbContext>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

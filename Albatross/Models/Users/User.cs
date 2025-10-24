@@ -1,4 +1,4 @@
-using System;
+/*using System;
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 
@@ -12,4 +12,4 @@ namespace Albatross.Models
 
         public ICollection<User>Users { get; set; }
     }
-}
+}*/

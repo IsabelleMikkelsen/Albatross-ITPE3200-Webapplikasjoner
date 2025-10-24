@@ -1,5 +1,5 @@
 
-using System;
+/*using System;
 using System.ComponentModel.DataAnnotations;
 namespace Albatross.Models
 {
@@ -12,4 +12,4 @@ public class UserType
 
     public ICollection<User> Users { get; set; }
 }
-}
+}*/

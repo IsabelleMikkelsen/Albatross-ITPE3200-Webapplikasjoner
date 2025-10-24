@@ -19,7 +19,7 @@ builder.Services.AddDbContext<ItemDbContext>(options => {
 });
 
 //Setting up user authentication and identity management
-builder.Services.AddDefaultIdentity<User>(options => 
+builder.Services.AddDefaultIdentity<UserModel>(options => 
 {
     //doesnt require email confirmation
     options.SignIn.RequireConfirmedAccount = false;

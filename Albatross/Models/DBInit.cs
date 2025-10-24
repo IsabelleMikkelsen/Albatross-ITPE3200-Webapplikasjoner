@@ -7,7 +7,8 @@ namespace Albatross.Models;
 
 public static class DBInit
 {
-    public static void Seed(IApplicationBuilder app)
+    //public static void Seed(IApplicationBuilder app)
+    public static async void Seed(IApplicationBuilder app)
     {
         using var serviceScope = app.ApplicationServices.CreateAsyncScope();
         //ItemDbContext context = serviceScope.ServiceProvider.GetRequiredService<ItemDbContext>();
@@ -37,13 +38,13 @@ public static class DBInit
             await userManager.AddToRoleAsync(adminUser, "Admin");
         }
         //Remove to avoid bypassing Migrations?
-        context.Database.EnsureCreated();
+        //context.Database.EnsureCreated();
 
         //Only keep context.SaveChanges(); ? Avoids empty entries
         if (!context.Items.Any())
         {
-            var items = new List<Item>();
-            context.AddRange(items);
+            //var items = new List<Item>();
+            //context.AddRange(items);
             context.SaveChanges();
         }
     }

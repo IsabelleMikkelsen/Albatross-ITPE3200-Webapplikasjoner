@@ -8,8 +8,10 @@ namespace Albatross.Models
     {
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
-        public DateTime CreatedAt { get; set;}
+        public DateTime CreatedAt { get; set;} = DateTime.Now;
 
-        public ICollection<User>Users { get; set; }
+        public ICollection<Module> Modules { get; set; } = new List<Module>();
+        /*public ICollection<Player> Players { get; set; } = new List<Player>();
+        public ICollection<Admin> Admins { get; set; } = new List<Admin>(); */
     }
 }

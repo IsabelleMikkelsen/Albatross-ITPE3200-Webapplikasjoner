@@ -9,9 +9,9 @@ namespace Albatross.Controllers;
 public class ModuleTopController : Controller
 {
     private readonly ItemDbContext _DbContext;
-    private readonly ILogger<ModuleTopController> _logger;
+    //private readonly ILogger<ModuleTopController> _logger;
 
-    public ModuleTopController(ItemDbContext DbContext, ILogger<ModuleTopController> logger)
+    public ModuleTopController(ItemDbContext DbContext) //removed from parantheses: , ILogger<ModuleTopController> logger
     {
         _DbContext = DbContext;
         //_itemDbContext = itemDbContext;

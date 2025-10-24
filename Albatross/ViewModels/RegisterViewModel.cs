@@ -22,7 +22,8 @@ namespace Albatross.ViewModels
         [DataType(DataType.Password)]
         [Display(Name = "Confirm Password")]
         [Compare("Password", ErrorMessage = "Passwords do not match")]
-        string ConfirmPassword { get; set;} = string.Empty;
+        //string ConfirmPassword { get; set;} = string.Empty;
+        public string ConfirmPassword { get; set;} = string.Empty;
 
         [Display(Name = "First Name")]
         public string? FirstName { get; set; }

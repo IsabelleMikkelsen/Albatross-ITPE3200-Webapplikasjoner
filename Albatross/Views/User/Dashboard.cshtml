@@ -4,7 +4,7 @@
     
 
 <div class="dashboard-container mt-5">
-    <h2 class="text-center mb-4 fw-bold">Welcome back User1234</h2>
+    <h2 class="text-center mb-4 fw-bold">Welcome back @User.Identity.Name!</h2>
     <p class="text-center text-muted">Here is your dashboard where you can manage your account and view your activities.</p>
 
 <div class="row justify-content-center mt-4">
@@ -12,8 +12,8 @@
     <div class="card shadow-sm border-success">
       <div class="card-body text-center">
         <h5 class="card-title text-success">A1</h5>
-        <p class="card-text">Basic Level</p>
-        <a href="#" class="btn btn-primary">Start Module</a>
+        <p class="card-text">Beginner Level</p>
+        <a asp-controller="Quiz" asp-action ="A1" class="btn btn-primary">Start Module</a>
       </div>
     </div>
   </div>
@@ -21,8 +21,8 @@
     <div class="card shadow-sm border-secondary opacity-50">
       <div class="card-body text-center">
         <h5 class="card-title text-muted fw-bold">A2</h5>
-        <p class="card-text">Finnish Level A1</p>
-        <a href="#" class="btn btn-secondary" disabled>Låst</a>
+        <p class="card-text">Finish Level A1</p>
+        <a href="#" class="btn btn-secondary" disabled>Locked</a>
       </div>
     </div>
   </div>
@@ -31,17 +31,19 @@
     <div class="card shadow-sm border-secondary opacity-50">
       <div class="card-body text-center">
         <h5 class="card-title text-muted fw-bold">B1</h5>
-        <p class="card-text">Finnish Level A2</p>
-        <a href="#" class="btn btn-secondary" disabled>Låst</a>
+        <p class="card-text">Finish Level A2</p>
+        <a href="#" class="btn btn-secondary" disabled>Locked</a>
       </div>
     </div>
   </div>
   
 </div>
+  @*
   @{
     ViewData["Title"] = "Min side";
 }
 
 <
+*@
 
       

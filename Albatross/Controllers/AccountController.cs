@@ -84,7 +84,7 @@ public class AccountController : Controller
         
         if (result.Succeeded)
         {
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Dashboard", "User");
         }
         
         ModelState.AddModelError("", "Wrong username or password");

@@ -1,15 +1,44 @@
+@model Albatross.ViewModels.LoginViewModel
 @{
-    ViewData["Title"] = "Logg inn";
+    ViewData["Title"] = "Sign in";
 }
-
 
 <div class="d-flex justify-content-center align-items-center min-vh-100">
 <div class="login-container mt-5 mb-5" style="max-width: 600px; width: 90%">
     <div class="card p-4 shadow-sm border-0">
-        <h2 class="text-center mb-4" fw-bold>Logg inn</h2>
-        <form>
+        <h2 class="text-center mb-4" fw-bold>Sign in</h2>
+        <form method="post" asp-action="Login" asp-controller="Account">
+
+          <div class="mb-3">
+            <label asp-for="Username" class="form-label mt-4">Username</label>
+            <input asp-for="Username" type="text" class="form-control" placeholder="Enter username" required>
+            <span asp-validation-for="Username" class="text-danger"></span>
+          </div>
+
+          <div class="mb-3">
+            <label asp-for="Password" class="form-label mt-4">Password</label>
+            <input asp-for="Password" type="password" class="form-control" placeholder="Password" autocomplete="off" required>
+            <span asp-validation-for="Password" class="text-danger"></span>
+          </div>
+
+          <div class="mb-3 form-check">
+            <input asp-for="RememberMe" type="checkbox" class="form-check-input">
+            <label asp-for="RememberMe" class="form-check-label">Remember me</label>
+          </div>
+
+          <div class="d-grid mt-4">
+            <button type="submit" class="btn btn-primary w-100">Sign in</button>
+          </div>
+        </form>
+          <p class="text-center mt-3">
+            Don't have a user yet? <a asp-controller="Account" asp-action="Register">Register here!</a>
+          </p>
+    </div>
+    </div>
+</div>
+
   
-    <div class="mb-3">
+    @*<div class="mb-3">
       <label for="exampleInputEmail1" class="form-label mt-4">Email address</label>
       <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
     </div>
@@ -23,7 +52,7 @@
     </div>
     <div class="d-grid mt-4">  
         <a asp-controller="User" asp-action="Dashboard" class="btn btn-primary w-100">Logg inn</a>
-    </div>
+    </div> 
   
   </form>
   <p class="text-center mt-3">
@@ -31,7 +60,7 @@
   </p>
 
     </div>
-</div>
+</div> *@
 
 
 

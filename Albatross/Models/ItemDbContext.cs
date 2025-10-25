@@ -5,7 +5,7 @@ using Albatross.Models;
 namespace Albatross.Models;
 //namespace Albatross.DAL;
 
-public class ItemDbContext : DbContext
+public class ItemDbContext : IdentityDbContext<User>
 {
     public ItemDbContext(DbContextOptions<ItemDbContext> options) : base(options)
     {
@@ -15,7 +15,6 @@ public class ItemDbContext : DbContext
     public DbSet<Item> Items { get; set; }
     public DbSet<Inventory> Inventories { get; set; } //*
 
-    public DbSet<User> Users { get; set; }
     public DbSet<Player> Players { get; set; }
     public DbSet<Admin> Admins { get; set; }
 

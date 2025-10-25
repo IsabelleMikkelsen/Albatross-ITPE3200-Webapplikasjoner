@@ -1,11 +1,12 @@
 using System;
+
 namespace Albatross.Models
 {
     public class AnswerOption
     {
         public int AnswerOptionId { get; set; }
         //public int True_or_false_Id { get; set; }
-        public string AnswerSentence { get; set; }
+        public string AnswerSentence { get; set; } = string.Empty; //Add default value
 
         //Path for media
         //public Question Question { get; set; }

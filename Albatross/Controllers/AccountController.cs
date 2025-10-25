@@ -2,10 +2,8 @@ using System;                        // Basic C#-functionality
 using System.Threading.Tasks;        // Makes it possible to use async-methodes
 using Microsoft.AspNetCore.Mvc;      // MVC-foundation: Controller, IActionResult, View(), RedirectToAction()
 using Albatross.Models;              // Access to our own Models
-using System.Security.Cryptography;  // Access to cryptographic algorithms
-using System.Text;  
-using System.Linq;
 using Microsoft.AspNetCore.Identity;
+using Albatross.ViewModels;
 
 
 namespace Albatross.Controllers;
@@ -33,26 +31,38 @@ public class AccountController : Controller
     }
     //Handling registration data
     [HttpPost]
-    public async Task<IActionResult> Register(User user)
+    public async Task<IActionResult> Register(RegisterViewModel model)
     {
         if (!ModelState.IsValid)
         {
-        return View(user);
+        return View(model);
         }
 
-        //Hashes/salts pw, saves to DB, validates pw strength, handles duplicate emails/usernames
-        var result = await _userManager.CreateAsync(user, user.PasswordHash);
+        var user = new User
+        {
+            UserName = model.Username,
+            Email = model.Email,
+            FirstName = model.FirstName,
+            LastName = model.LastName
+        };
+
+        // Identity handles password hashing, validation, uniqueness, and saving to DB
+        var result = await _userManager.CreateAsync(user, model.Password);
         if (result.Succeeded)
         {
+            //Default role as player (since most users will be)
+            await _userManager.AddToRoleAsync(user, "Player");
+
             await _signInManager.SignInAsync(user, isPersistent: false);
             return RedirectToAction("Dashboard", "User");
         }
+
         foreach (var error in result.Errors)
         {
             ModelState.AddModelError(string.Empty, error.Description);
         }
 
-        return View(user);
+        return View(model);
     }
 
     //Login
@@ -62,9 +72,15 @@ public class AccountController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> Login(string username, string password)
+    public async Task<IActionResult> Login(LoginViewModel model)
     {
-        var result = await _signInManager.PasswordSignInAsync(username, password, false, false);
+        if (!ModelState.IsValid)
+        {
+            return View(model);
+        }
+
+        var result = await _signInManager.PasswordSignInAsync(
+            model.Username, model.Password, model.RememberMe, lockoutOnFailure: false);
         
         if (result.Succeeded)
         {
@@ -72,7 +88,7 @@ public class AccountController : Controller
         }
         
         ModelState.AddModelError("", "Wrong username or password");
-        return View();
+        return View(model);
     }
 
     //Logout

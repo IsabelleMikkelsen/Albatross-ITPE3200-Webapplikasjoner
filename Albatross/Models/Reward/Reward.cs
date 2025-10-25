@@ -1,4 +1,5 @@
 using System;
+
 namespace Albatross.Models
 {
     public class Reward
@@ -7,6 +8,6 @@ namespace Albatross.Models
 
         public int ItemId { get; set; } //2.nøkkel:
 
-        public Item Item { get; set; } //*
+        public Item Item { get; set; } = null!; //Null-forgiving operator
     }
 }

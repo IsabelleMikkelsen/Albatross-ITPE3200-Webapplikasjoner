@@ -59,9 +59,21 @@
                 
               
              <div class="d-flex">
-                    <a class="btn btn-outline-success me-2 px-3" asp-controller="Account" asp-action="Login">Login</a>
-                    <a class="btn btn-outline-success me-2 px-3" asp-controller="Account" asp-action="Register">Sign Up</a>
-                    </div>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <!-- Vis brukernavn og Logout-knapp hvis brukeren er logget inn -->
+        <span class="navbar-text me-2">Welcome, @User.Identity.Name!</span>
+        <form asp-controller="Account" asp-action="Logout" method="post">
+            <button type="submit" class="btn btn-outline-danger me-2 px-3">Logout</button>
+        </form>
+    }
+    else
+    {
+        <!-- Vis Login og Sign Up-knapper hvis brukeren ikke er logget inn -->
+        <a class="btn btn-outline-success me-2 px-3" asp-controller="Account" asp-action="Login">Login</a>
+        <a class="btn btn-outline-success me-2 px-3" asp-controller="Account" asp-action="Register">Sign Up</a>
+    }
+</div>
                 </div>
             </div>
         </nav>

@@ -9,7 +9,7 @@ public class ItemDbContext : IdentityDbContext<User>
 {
     public ItemDbContext(DbContextOptions<ItemDbContext> options) : base(options)
     {
-        Database.EnsureCreated(); //remove (add // -) line if migrations is used
+       // Database.EnsureCreated(); //Removed because migrations is used
     }
 
     public DbSet<Item> Items { get; set; }

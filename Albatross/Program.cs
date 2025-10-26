@@ -60,6 +60,8 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseStaticFiles();
+
 app.MapDefaultControllerRoute();
 
 /* Kommenteres ut ved bruk av seed / DBINIT

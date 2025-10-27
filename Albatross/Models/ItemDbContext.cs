@@ -32,5 +32,5 @@ public class ItemDbContext : IdentityDbContext<User>
     }*/
 
     //Nulls
-    public DbSet<NullModuleTopic> NullModuleTopics { get; set; }
+    //public DbSet<NullModuleTopic> NullModuleTopics { get; set; }
 }

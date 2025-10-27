@@ -1,0 +1,52 @@
+@{
+    ViewData["Title"] = "Quiz Results";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card text-center">
+                <div class="card-header bg-success text-white">
+                    <h3>Quiz Complete!</h3>
+                    <p>@ViewBag.QuizType</p>
+                </div>
+                <div class="card-body">
+                    <h4>Your Score: @ViewBag.Score out of @ViewBag.Total</h4>
+                    <p class="lead">
+                        @{
+                            double percentage = (double)ViewBag.Score / (double)ViewBag.Total * 100;
+                        }
+                        @percentage.ToString("F0")% Correct
+                    </p>
+                    
+                    @if (percentage >= 70)
+                    {
+                        <div class="alert alert-success">
+                            <h5>🎉 Congratulations!</h5>
+                            <p>You passed this quiz!</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-warning">
+                            <h5>Keep practicing!</h5>
+                            <p>Try the quiz again to improve your score.</p>
+                        </div>
+                    }
+                    
+                    <div class="mt-4">
+                        @if (ViewBag.QuizType == "A1Alphabet")
+                        {
+                            <a asp-controller="Quiz" asp-action="A1Alphabet" class="btn btn-primary">Retake Quiz</a>
+                        }
+                        else if (ViewBag.QuizType == "A1Verbs")
+                        {
+                            <a asp-controller="Quiz" asp-action="A1Verbs" class="btn btn-primary">Retake Quiz</a>
+                        }
+                        <a asp-controller="User" asp-action="Dashboard" class="btn btn-secondary">Back to Dashboard</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

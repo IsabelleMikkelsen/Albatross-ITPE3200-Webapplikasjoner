@@ -65,6 +65,7 @@
         <span class="navbar-text me-2">Welcome, @User.Identity.Name!</span>
         <a asp-controller="User" asp-action="Dashboard" class="btn btn-outline-primary me-2 px-3">Dashboard</a>
         <a asp-controller="Item" asp-action="Table" class="btn btn-outline-info me-2 px-3">Inventory</a>
+        <a asp-controller="ModuleTop" asp-action="Table" class="btn btn-outline-success me-2 px-3">Modules</a>
         <form asp-controller="Account" asp-action="Logout" method="post">
             <button type="submit" class="btn btn-outline-danger me-2 px-3">Logout</button>
         </form>

@@ -9,14 +9,14 @@ namespace Albatross.Controllers;
 public class ModuleTopController : Controller
 {
     private readonly ItemDbContext _DbContext;
-    //private readonly ILogger<ModuleTopController> _logger;
+    private readonly ILogger<ModuleTopController> _logger;
 
-    public ModuleTopController(ItemDbContext DbContext) //removed from parantheses: , ILogger<ModuleTopController> logger
+    public ModuleTopController(ItemDbContext DbContext, ILogger<ModuleTopController> logger)
     {
         _DbContext = DbContext;
-        //_itemDbContext = itemDbContext;
-        //_logger = logger;
+        _logger = logger;
     }
+
     public async Task<IActionResult> Table()
     {
         List<ModuleTopic> moduleTopics = await _DbContext.ModuleTopics.ToListAsync();
@@ -24,49 +24,48 @@ public class ModuleTopController : Controller
         return View(ModuleTopViewModel);
     }
 
-/*
-    public async Task<IActionResult> Grid()
-    {
-        List<Item> items = await _itemDbContext.Items.ToListAsync();
-        var ItemsViewModel = new ItemsViewModel(items, "Grid");
-        return View(ItemsViewModel);
-    }
-*/
     public async Task<IActionResult> Details(int id)
     {
-        //List<Item> items = _itemDbContext.Items.ToList();
         var moduleTopic = await _DbContext.ModuleTopics.FirstOrDefaultAsync(i => i.ModuleTopicId == id);
-        if (moduleTopic== null)
+        if (moduleTopic == null)
             return NotFound();
         return View(moduleTopic);
     }
 
-/*
     [HttpGet]
     public async Task<IActionResult> Update(int id)
     {
-        var item = await _itemDbContext.Items.FindAsync(id); //await
-        if (item == null)
+        var moduleTopic = await _DbContext.ModuleTopics.FindAsync(id);
+        if (moduleTopic == null)
         {
             return NotFound();
         }
-        return View(item);
+        return View(moduleTopic);
     }
-    
-    [HttpPost]
-    public async Task<IActionResult> Update(Item item)
-    {
 
-        if (ModelState.IsValid)
+    [HttpPost]
+    public async Task<IActionResult> Update(ModuleTopic moduleTopic)
+    {
+        if (!ModelState.IsValid)
         {
-            _itemDbContext.Items.Update(item);
-            await _itemDbContext.SaveChangesAsync(); //await
-            return RedirectToAction(nameof(Table));
+            return View(moduleTopic);
         }
 
-        return View(item);
+        try
+        {
+            _DbContext.ModuleTopics.Update(moduleTopic);
+            await _DbContext.SaveChangesAsync();
+            _logger.LogInformation("ModuleTopic {ModuleTopicId} updated successfully", moduleTopic.ModuleTopicId);
+            return RedirectToAction(nameof(Table));
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error updating ModuleTopic {ModuleTopicId}", moduleTopic.ModuleTopicId);
+            ModelState.AddModelError("", "An error occurred while updating the module topic.");
+            return View(moduleTopic);
+        }
     }
-*/
+
     [HttpGet]
     public IActionResult Create()
     {
@@ -76,37 +75,59 @@ public class ModuleTopController : Controller
     [HttpPost]
     public async Task<IActionResult> Create(ModuleTopic moduleTopic)
     {
-
         if (ModelState.IsValid)
         {
             _DbContext.ModuleTopics.Add(moduleTopic);
-            await _DbContext.SaveChangesAsync(); //await
+            await _DbContext.SaveChangesAsync();
             return RedirectToAction(nameof(Table));
         }
 
         return View(moduleTopic);
     }
-/*
+
     [HttpGet]
     public async Task<IActionResult> Delete(int id)
     {
-        var item = await _itemDbContext.Items.FindAsync(id);
-        if (item == null)
+        var moduleTopic = await _DbContext.ModuleTopics.FindAsync(id);
+        if (moduleTopic == null)
         {
             return NotFound();
         }
-        return View(item);
+        return View(moduleTopic);
     }
+
     [HttpPost]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
-        var item = await _itemDbContext.Items.FindAsync(id);
-        if (item == null)
+        try
         {
-            return NotFound();
+            var moduleTopic = await _DbContext.ModuleTopics.FindAsync(id);
+            if (moduleTopic == null)
+            {
+                _logger.LogWarning("Attempted to delete non-existent ModuleTopic {ModuleTopicId}", id);
+                return NotFound();
+            }
+
+            _DbContext.ModuleTopics.Remove(moduleTopic);
+            await _DbContext.SaveChangesAsync();
+            _logger.LogInformation("ModuleTopic {ModuleTopicId} deleted successfully", id);
+            return RedirectToAction(nameof(Table));
         }
-        _itemDbContext.Items.Remove(item);
-        await _itemDbContext.SaveChangesAsync(); //await
-        return RedirectToAction(nameof(Table));
-    }*/
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error deleting ModuleTopic {ModuleTopicId}", id);
+            ModelState.AddModelError("", "An error occurred while deleting the module topic.");
+            return RedirectToAction(nameof(Table));
+        }
+    }
+
+    /*
+    public async Task<IActionResult> Grid()
+    {
+        List<Item> items = await _itemDbContext.Items.ToListAsync();
+        var ItemsViewModel = new ItemsViewModel(items, "Grid");
+        return View(ItemsViewModel);
+    }
+    */
+    
 }

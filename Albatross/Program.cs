@@ -6,6 +6,7 @@
 using Microsoft.EntityFrameworkCore;
 using Albatross.Models;
 using Microsoft.AspNetCore.Identity;
+using Albatross.DAL;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,9 @@ builder.Services.AddDbContext<ItemDbContext>(options => {
     options.UseSqlite(
         builder.Configuration["ConnectionStrings:ItemDbContextConnection"]);
 });
+
+//Adding repository pattern
+builder.Services.AddScoped<IItemRepository, ItemRepository>();
 
 //Setting up user authentication and identity management
 builder.Services.AddDefaultIdentity<User>(options => 

@@ -1,4 +1,4 @@
-/*using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Albatross.Models;
 
 namespace Albatross.DAL;
@@ -47,8 +47,13 @@ public class ItemRepository : IItemRepository
         return true;
     }
 
-    public Task<IEnumerable<Item>> GetAll()
-    {
-        throw new NotImplementedException();
-    }
-}*/
+    //public Task<IEnumerable<Item>> GetAll()
+    //{
+      //  throw new NotImplementedException();
+    //}
+
+    public async Task<IEnumerable<Item>> GetAll()
+{
+    return await _db.Items.ToListAsync();
+}
+}

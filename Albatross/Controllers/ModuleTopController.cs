@@ -2,6 +2,10 @@ using Microsoft.AspNetCore.Mvc;
 using Albatross.Models;
 using Albatross.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+using Albatross.DAL;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
 
 namespace Albatross.Controllers;
 
@@ -33,6 +37,7 @@ public class ModuleTopController : Controller
     }
 
     [HttpGet]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Update(int id)
     {
         var moduleTopic = await _DbContext.ModuleTopics.FindAsync(id);
@@ -44,6 +49,7 @@ public class ModuleTopController : Controller
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Update(ModuleTopic moduleTopic)
     {
         if (!ModelState.IsValid)
@@ -67,12 +73,14 @@ public class ModuleTopController : Controller
     }
 
     [HttpGet]
+    [Authorize(Roles = "Admin")]
     public IActionResult Create()
     {
         return View();
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Create(ModuleTopic moduleTopic)
     {
         if (ModelState.IsValid)
@@ -86,6 +94,7 @@ public class ModuleTopController : Controller
     }
 
     [HttpGet]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Delete(int id)
     {
         var moduleTopic = await _DbContext.ModuleTopics.FindAsync(id);
@@ -97,6 +106,7 @@ public class ModuleTopController : Controller
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
         try
@@ -120,14 +130,5 @@ public class ModuleTopController : Controller
             return RedirectToAction(nameof(Table));
         }
     }
-
-    /*
-    public async Task<IActionResult> Grid()
-    {
-        List<Item> items = await _itemDbContext.Items.ToListAsync();
-        var ItemsViewModel = new ItemsViewModel(items, "Grid");
-        return View(ItemsViewModel);
-    }
-    */
     
 }

@@ -11,6 +11,8 @@ namespace Albatross.Models
         public DateTime CreatedAt { get; set;} = DateTime.Now;
 
         public ICollection<Module> Modules { get; set; } = new List<Module>();
+
+        
         /*public ICollection<Player> Players { get; set; } = new List<Player>();
         public ICollection<Admin> Admins { get; set; } = new List<Admin>(); */
     }

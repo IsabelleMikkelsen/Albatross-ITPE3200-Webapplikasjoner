@@ -10,6 +10,14 @@ using Albatross.DAL;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Legg til services for Session
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Session varer i 30 minutter
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true; // Viktig for GDPR-samsvar
+});
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -21,6 +29,11 @@ builder.Services.AddDbContext<ItemDbContext>(options => {
 
 //Adding repository pattern
 builder.Services.AddScoped<IItemRepository, ItemRepository>();
+
+// Legg til Identity
+/*builder.Services.AddIdentity<User, IdentityRole>()
+    .AddEntityFrameworkStores<ItemDbContext>()
+    .AddDefaultTokenProviders();*/
 
 //Setting up user authentication and identity management
 builder.Services.AddDefaultIdentity<User>(options => 
@@ -55,6 +68,7 @@ else
     app.UseHsts();
 }
 
+app.UseSession();
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

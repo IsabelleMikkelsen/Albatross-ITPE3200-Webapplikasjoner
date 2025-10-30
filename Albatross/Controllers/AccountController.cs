@@ -20,10 +20,11 @@ public class AccountController : Controller
     public AccountController(
         UserManager<User> userManager,
         SignInManager<User> signInManager)
-        {
-            _userManager = userManager;
-            _signInManager = signInManager;
-        }
+    {
+        _userManager = userManager;
+        _signInManager = signInManager;
+    }
+
     //Registration - New user
     public IActionResult Register()
     {
@@ -81,15 +82,78 @@ public class AccountController : Controller
 
         var result = await _signInManager.PasswordSignInAsync(
             model.Username, model.Password, model.RememberMe, lockoutOnFailure: false);
-        
+
         if (result.Succeeded)
         {
             return RedirectToAction("Dashboard", "User");
         }
-        
+
         ModelState.AddModelError("", "Wrong username or password");
         return View(model);
     }
+    //Switch between admin and player mode:
+    [HttpPost]
+    public async Task<IActionResult> SwitchToAdmin()
+    {
+        // Hent den nåværende brukeren (f.eks., JS eller TK)
+        var currentUser = await _userManager.GetUserAsync(User);
+
+        if (currentUser == null)
+        {
+            return NotFound("Den nåværende brukeren ble ikke funnet.");
+        }
+
+        // Lagre den nåværende bruker-ID-en i Session
+        HttpContext.Session.SetString("OriginalUserId", currentUser.Id);
+
+        // Finn admin-brukeren (f.eks. brukernavn "admin")
+        var admin = await _userManager.FindByNameAsync("admin");
+
+        if (admin == null)
+        {
+            return NotFound("Admin-brukeren ble ikke funnet.");
+        }
+
+        // Logg ut den nåværende brukeren
+        await _signInManager.SignOutAsync();
+
+        // Logg inn admin-brukeren uten å be om passord
+        await _signInManager.SignInAsync(admin, isPersistent: false);
+
+        // Gå til admin-dashboard
+        return RedirectToAction("Dashboard", "User"); //admin
+
+    }
+
+[HttpPost]
+public async Task<IActionResult> SwitchToUser()
+{
+    // Hent den opprinnelige brukerens ID fra session
+    string originalUserId = HttpContext.Session.GetString("OriginalUserId");
+
+    if (string.IsNullOrEmpty(originalUserId))
+    {
+        return NotFound("Opprinnelig bruker-ID ble ikke funnet i session.");
+    }
+
+    // Finn den opprinnelige brukeren
+    var originalUser = await _userManager.FindByIdAsync(originalUserId);
+
+    if (originalUser == null)
+    {
+        return NotFound("Den opprinnelige brukeren ble ikke funnet.");
+    }
+
+    // Logg ut admin-brukeren
+    await _signInManager.SignOutAsync();
+
+    // Logg inn som den opprinnelige brukeren
+    await _signInManager.SignInAsync(originalUser, isPersistent: false);
+
+    // Omdiriger tilbake til det generelle dashboardet
+    return RedirectToAction("Dashboard", "User");
+}
+    //kladd: await _userManager.AddToRoleAsync(user, "Player");
 
     //Logout
     [HttpPost]

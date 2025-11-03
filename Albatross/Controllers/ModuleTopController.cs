@@ -23,7 +23,7 @@ public class ModuleTopController : Controller
 
     public async Task<IActionResult> Table()
     {
-        List<ModuleTopic> moduleTopics = await _DbContext.ModuleTopics.ToListAsync();
+        var moduleTopics = await _DbContext.ModuleTopics.ToListAsync();
         var ModuleTopViewModel = new ModuleTopViewModel(moduleTopics, "Table");
         return View(ModuleTopViewModel);
     }
@@ -85,13 +85,23 @@ public class ModuleTopController : Controller
     {
         if (ModelState.IsValid)
         {
-            _DbContext.ModuleTopics.Add(moduleTopic);
-            await _DbContext.SaveChangesAsync();
-            return RedirectToAction(nameof(Table));
-        }
+            //Brukes når vi fikser ModuleController osv.
+            /*var module = await _DbContext.Modules.FirstOrDefaultAsync(m => m.ModuleName == moduleTopic.Module.ModuleName);
 
+            if (module != null)
+            {*/
+
+            //ModulId = nullable og satt til 1 inntil andre Modules inkluderes
+            moduleTopic.ModuleId = 1;
+                _DbContext.ModuleTopics.Add(moduleTopic);
+                await _DbContext.SaveChangesAsync();
+                return RedirectToAction(nameof(Table));
+            }
+        //}
         return View(moduleTopic);
     }
+
+
 
     [HttpGet]
     [Authorize(Roles = "Admin")]

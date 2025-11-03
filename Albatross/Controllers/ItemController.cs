@@ -107,6 +107,18 @@ public class ItemController : Controller
         }
     }
 
+    [HttpGet]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var item = await _repository.GetItemById(id);
+        if (item == null)
+        {
+            return NotFound();
+        }
+        return View(item);
+    }
+
     [HttpPost]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteConfirmed(int id)

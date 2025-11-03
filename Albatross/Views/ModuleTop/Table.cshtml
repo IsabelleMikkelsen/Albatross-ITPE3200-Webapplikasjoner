@@ -17,24 +17,24 @@
 
   <body>
 
-<div class="container">
+<!--<div class="container">
       <details>
         <summary>Demo accordion <strong>[Edit] [Delete All]</strong></summary>
         <p> Game 1 <strong>[Edit] | [Delete]</strong></p>
         <p> Game 2 <strong>[Edit] | [Delete]</strong></p>
     
     <p><Strong>[Create new game]</Strong></p>
-    </details>
+    </details>-->
     
-    @foreach (var ModuleTopic in Model.ModuleTopics)
-      {
-        <details>
+   @foreach (var ModuleTopic in Model.ModuleTopics)
+{
+    <details>
         <summary>@ModuleTopic.ModuleTopicName</summary>
         <p>Legg oppgavetabell her</p>
-        </details>
-      }
+    </details>
+}
       
-      @await Html.PartialAsync("_ModuleTable_Admin", Model.ModuleTopics) <!--//*-->
+      @await Html.PartialAsync("_ModuleTable_Admin", Model.ModuleTopics)<!--//*--> 
 
     </div>
   </body>

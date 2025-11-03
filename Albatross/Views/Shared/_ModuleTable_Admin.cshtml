@@ -4,8 +4,21 @@
 @foreach (var ModuleTopic in Model)
       {
         <details>
-        <summary>@ModuleTopic.ModuleTopicName</summary>
-        <p>Legg oppgavetabell her</p>
+        <summary>@ModuleTopic.ModuleTopicName
+        <td>
+        <!--<a asp-action="Update" asp-route-id="@ModuleTopic.ModuleTopicId">Update</a>-->
+        <a asp-action="Delete" asp-route-id="@ModuleTopic.ModuleTopicId">Delete module</a>
+    </td></summary>
+        
+        <p>Oppgavenavn
+        <a asp-action="Update" asp-route-id="@ModuleTopic.ModuleTopicId">Update</a>
+        <a asp-action="Delete" asp-route-id="@ModuleTopic.ModuleTopicId">Delete</a>
+        </p>
+        <p>
+        <a class="btn btn-secondary"
+        asp-controller="ModuleTop"
+        asp-action="Create">Create task</a>
+        </p>
         </details>
       }
 

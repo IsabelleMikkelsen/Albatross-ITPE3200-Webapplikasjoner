@@ -5,7 +5,7 @@
 @model ModuleTopViewModel
 
 
-<h1>List of ModuleTopics (@Model.CurrentViewName View)</h1>
+<h2>List of player ModuleTopics (@Model.CurrentViewName View)</h2>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -13,28 +13,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Accessible Accordion</title>
     <link rel="stylesheet"  href="~/css/accordion.css"  />
+    <link rel="stylesheet"  href="~/css/adminbutton.css"  />
   </head>
 
   <body>
 
-<!--<div class="container">
-      <details>
-        <summary>Demo accordion <strong>[Edit] [Delete All]</strong></summary>
-        <p> Game 1 <strong>[Edit] | [Delete]</strong></p>
-        <p> Game 2 <strong>[Edit] | [Delete]</strong></p>
-    
-    <p><Strong>[Create new game]</Strong></p>
-    </details>-->
-    
    @foreach (var ModuleTopic in Model.ModuleTopics)
 {
     <details>
         <summary>@ModuleTopic.ModuleTopicName</summary>
-        <p>Legg oppgavetabell her</p>
+        <p>(a)ATaskName</p>
     </details>
 }
-      
+      @if(User.IsInRole("Admin")){
       @await Html.PartialAsync("_ModuleTable_Admin", Model.ModuleTopics)<!--//*--> 
+      }
 
     </div>
   </body>

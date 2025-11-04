@@ -1,0 +1,11 @@
+.btn-custom-danger {
+    background-color: #f8d7da; /* Lysere rød bakgrunn */
+    color: #721c24; /* Mørkere rød tekst */
+    border-color: #f5c6cb; /* Lysere rød kant */
+}
+
+.btn-custom-danger:hover {
+    background-color: #f5c6cb; /* Litt mørkere ved hover */
+    color: #721c24; /* Hold teksten mørk */
+    border-color: #f1a1ab; /* Mørkere kant ved hover */
+}

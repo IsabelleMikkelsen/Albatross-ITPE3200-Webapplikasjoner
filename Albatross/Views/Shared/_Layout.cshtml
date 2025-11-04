@@ -63,6 +63,7 @@
     @if(User.Identity.IsAuthenticated){
         <span class="navbar-text me-2">Welcome, @User.Identity.Name!</span>
         <a asp-controller="User" asp-action="Dashboard" class="btn btn-outline-primary me-2 px-3">Dashboard</a>
+        <a asp-controller="ModuleTop" asp-action="Table" class="btn btn-outline-success me-2 px-3">Modules</a>
         <form asp-controller="Account" asp-action="Logout" method="post">
         <button type="submit" class="btn btn-outline-danger me-2 px-3">Logout</button>
         </form>
@@ -80,55 +81,18 @@
         <button type="submit" class="btn btn-primary">Player Mode</button>
         </form>
             <a asp-controller="Item" asp-action="Table" class="btn btn-outline-info me-2 px-3">Items</a>
-            <a asp-controller="ModuleTop" asp-action="Table" class="btn btn-outline-success me-2 px-3">Modules</a>
-         }
-
             
-        
+         }
+ 
 
     }
-   @* @if (User.IsInRole("Player"))
-    {
-        <span class="navbar-text me-2">Welcome, @User.Identity.Name!</span>
-        <a asp-controller="User" asp-action="Dashboard" class="btn btn-outline-primary me-2 px-3">Dashboard</a>
-         <form asp-controller="Account" asp-action="Logout" method="post">
-            <button type="submit" class="btn btn-outline-danger me-2 px-3">Logout</button>
-        </form> 
-        }*@ 
-
-    
-    @* @if (User.IsInRole("Admin"))
-    {
-        <span class="navbar-text me-2">Welcome, @User.Identity.Name!</span>
-        <a asp-controller="User" asp-action="Dashboard" class="btn btn-outline-primary me-2 px-3">Dashboard</a>
-        <a asp-controller="Item" asp-action="Table" class="btn btn-outline-info me-2 px-3">Items</a>
-        <a asp-controller="ModuleTop" asp-action="Table" class="btn btn-outline-success me-2 px-3">Modules</a>
-    }*@
-     
+      
      else
     {
         <!-- Vis Login og Sign Up-knapper hvis brukeren ikke er logget inn -->
         <a class="btn btn-outline-success me-2 px-3" asp-controller="Account" asp-action="Login">Login</a>
         <a class="btn btn-outline-success me-2 px-3" asp-controller="Account" asp-action="Register">Sign Up</a>
 }
-
-    @*@if (User.Identity.IsAuthenticated)
-    {
-        <!-- Vis brukernavn og Logout-knapp hvis brukeren er logget inn -->
-        <span class="navbar-text me-2">Welcome, @User.Identity.Name!</span>
-        <a asp-controller="User" asp-action="Dashboard" class="btn btn-outline-primary me-2 px-3">Dashboard</a>
-        <a asp-controller="Item" asp-action="Table" class="btn btn-outline-info me-2 px-3">Inventory</a>
-        <a asp-controller="ModuleTop" asp-action="Table" class="btn btn-outline-success me-2 px-3">Modules</a>
-        <form asp-controller="Account" asp-action="Logout" method="post">
-            <button type="submit" class="btn btn-outline-danger me-2 px-3">Logout</button>
-        </form>
-    }
-    else
-    {
-        <!-- Vis Login og Sign Up-knapper hvis brukeren ikke er logget inn -->
-        <a class="btn btn-outline-success me-2 px-3" asp-controller="Account" asp-action="Login">Login</a>
-        <a class="btn btn-outline-success me-2 px-3" asp-controller="Account" asp-action="Register">Sign Up</a>
-    } *@
 </div>
                 </div>
             </div>

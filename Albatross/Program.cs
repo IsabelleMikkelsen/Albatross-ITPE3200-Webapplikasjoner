@@ -13,7 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Legg til services for Session
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(30); // Session varer i 30 minutter
+    options.IdleTimeout = TimeSpan.FromMinutes(180); // Session: 180min / 3 timer
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true; // Viktig for GDPR-samsvar
 });

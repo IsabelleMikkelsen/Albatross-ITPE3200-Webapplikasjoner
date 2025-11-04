@@ -6,13 +6,14 @@
         <details>
         <summary>@ModuleTopic.ModuleTopicName
         <td>
-        <!--<a asp-action="Update" asp-route-id="@ModuleTopic.ModuleTopicId">Update</a>-->
-        <a asp-action="Delete" asp-route-id="@ModuleTopic.ModuleTopicId">Delete module</a>
+        <a class="btn btn-outline-secondary" asp-action="Update" asp-route-id="ModuleTopic.ModuleTopicId">Update name</a>
+        <a class="btn btn-custom-danger" asp-action="Delete" asp-route-id="ModuleTopic.ModuleTopicId">Delete module</a>
     </td></summary>
         
-        <p>Oppgavenavn
-        <a asp-action="Update" asp-route-id="@ModuleTopic.ModuleTopicId">Update</a>
-        <a asp-action="Delete" asp-route-id="@ModuleTopic.ModuleTopicId">Delete</a>
+        <p>(a)ATaskName
+        <a class="btn btn-outline-secondary" asp-action="Update" asp-route-id="ModuleTopic.ModuleTopicId">Update</a>
+        <a class="btn btn-custom-danger" asp-action="Delete" asp-route-id="ModuleTopic.ModuleTopicId">Delete</a>
+        
         </p>
         <p>
         <a class="btn btn-secondary"

@@ -4,7 +4,10 @@
 <!--http://localhost:5093/Item/create-->
 <h2>Create new ModuleTopic</h2>
 
-<form asp-action="Create">
+<!--Kobles til A1 modul i db med id=10---->
+<form asp-action="Create" asp-route-moduleId="10"> 
+
+
 
 <div class="form-group">
 <label asp-for="ModuleTopicName">ModuleTopic name</label><span class="text-danger">*</span>

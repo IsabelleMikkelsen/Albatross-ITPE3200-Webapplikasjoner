@@ -12,25 +12,28 @@ namespace Albatross.Controllers;
 //MED ASYNC
 public class ModuleTopController : Controller
 {
-    private readonly ItemDbContext _DbContext;
+    
+    private readonly IModuleTopicRepository _moduleRepository;
     private readonly ILogger<ModuleTopController> _logger;
 
-    public ModuleTopController(ItemDbContext DbContext, ILogger<ModuleTopController> logger)
+    
+    public ModuleTopController(IModuleTopicRepository moduleTopicRepository, ILogger<ModuleTopController> logger)
     {
-        _DbContext = DbContext;
+        
+        _moduleRepository = moduleTopicRepository;
         _logger = logger;
     }
 
     public async Task<IActionResult> Table()
     {
-        var moduleTopics = await _DbContext.ModuleTopics.ToListAsync();
+        var moduleTopics = await _moduleRepository.GetAll();
         var ModuleTopViewModel = new ModuleTopViewModel(moduleTopics, "Table");
         return View(ModuleTopViewModel);
     }
 
     public async Task<IActionResult> Details(int id)
     {
-        var moduleTopic = await _DbContext.ModuleTopics.FirstOrDefaultAsync(i => i.ModuleTopicId == id);
+        var moduleTopic = await _moduleRepository.GetModuleTopicById(id);
         if (moduleTopic == null)
             return NotFound();
         return View(moduleTopic);
@@ -40,7 +43,7 @@ public class ModuleTopController : Controller
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Update(int id)
     {
-        var moduleTopic = await _DbContext.ModuleTopics.FindAsync(id);
+        var moduleTopic = await _moduleRepository.GetModuleTopicById(id);
         if (moduleTopic == null)
         {
             return NotFound();
@@ -56,27 +59,30 @@ public class ModuleTopController : Controller
         {
             return View(moduleTopic);
         }
-
+        
         try
         {
-            _DbContext.ModuleTopics.Update(moduleTopic);
-            await _DbContext.SaveChangesAsync();
-            _logger.LogInformation("ModuleTopic {ModuleTopicId} updated successfully", moduleTopic.ModuleTopicId);
+            await _moduleRepository.Update(moduleTopic);
             return RedirectToAction(nameof(Table));
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error updating ModuleTopic {ModuleTopicId}", moduleTopic.ModuleTopicId);
-            ModelState.AddModelError("", "An error occurred while updating the module topic.");
+            _logger.LogError(ex, "Error updating item");
             return View(moduleTopic);
         }
-    }
+        }
+
 
     [HttpGet]
     [Authorize(Roles = "Admin")]
-    public IActionResult Create()
+    public IActionResult Create(int moduleId)
     {
-        return View();
+        var moduleTopic = new ModuleTopic
+        {
+            ModuleId = moduleId
+        };
+    
+        return View(moduleTopic);
     }
 
     [HttpPost]
@@ -85,18 +91,11 @@ public class ModuleTopController : Controller
     {
         if (ModelState.IsValid)
         {
-            //Brukes når vi fikser ModuleController osv.
-            /*var module = await _DbContext.Modules.FirstOrDefaultAsync(m => m.ModuleName == moduleTopic.Module.ModuleName);
-
-            if (module != null)
-            {*/
-
-            //ModulId = nullable og satt til 1 inntil andre Modules inkluderes
-            moduleTopic.ModuleId = 1;
-                _DbContext.ModuleTopics.Add(moduleTopic);
-                await _DbContext.SaveChangesAsync();
+        
+            
+            await _moduleRepository.Create(moduleTopic);
                 return RedirectToAction(nameof(Table));
-            }
+        }
         //}
         return View(moduleTopic);
     }
@@ -107,7 +106,7 @@ public class ModuleTopController : Controller
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Delete(int id)
     {
-        var moduleTopic = await _DbContext.ModuleTopics.FindAsync(id);
+        var moduleTopic = await _moduleRepository.GetModuleTopicById(id);
         if (moduleTopic == null)
         {
             return NotFound();
@@ -119,7 +118,9 @@ public class ModuleTopController : Controller
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
-        try
+        await _moduleRepository.Delete(id);
+        return RedirectToAction(nameof(Table));
+        /*try
         {
             var moduleTopic = await _DbContext.ModuleTopics.FindAsync(id);
             if (moduleTopic == null)
@@ -138,7 +139,7 @@ public class ModuleTopController : Controller
             _logger.LogError(ex, "Error deleting ModuleTopic {ModuleTopicId}", id);
             ModelState.AddModelError("", "An error occurred while deleting the module topic.");
             return RedirectToAction(nameof(Table));
-        }
+        }*/
     }
     
 }

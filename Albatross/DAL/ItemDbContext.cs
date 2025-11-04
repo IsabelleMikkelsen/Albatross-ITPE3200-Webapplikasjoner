@@ -23,6 +23,18 @@ public class ItemDbContext : IdentityDbContext<User>
     public DbSet<ATask> ATasks { get; set; }
     public DbSet<Question> Questions { get; set; }
     public DbSet<AnswerOption> AnswerOptions { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+         modelBuilder.Entity<Module>().HasData(
+        new Module { ModuleId = 10, ModuleName = "A1", Description = "Basic Level", IsLocked = false },
+        new Module { ModuleId = 20, ModuleName = "A2", Description = "Finish Level A1", IsLocked = true },
+        new Module { ModuleId = 30, ModuleName = "B1", Description = "Finish Level A2", IsLocked = true }
+    );
+    }
+
     //public DbSet<AnswerType> AnswerTypes { get; set; } 
 
 

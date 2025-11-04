@@ -72,28 +72,17 @@ public class ModuleTopController : Controller
         }
         }
 
-        /*try
-        {
-            _moduleRepository.Update(moduleTopic);
-            await _DbContext.SaveChangesAsync();
-            _logger.LogInformation("ModuleTopic {ModuleTopicId} updated successfully", moduleTopic.ModuleTopicId);
-            return RedirectToAction(nameof(Table));
-
-
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Error updating ModuleTopic {ModuleTopicId}", moduleTopic.ModuleTopicId);
-            ModelState.AddModelError("", "An error occurred while updating the module topic.");
-            return View(moduleTopic);
-        }
-    }*/
 
     [HttpGet]
     [Authorize(Roles = "Admin")]
-    public IActionResult Create()
+    public IActionResult Create(int moduleId)
     {
-        return View();
+        var moduleTopic = new ModuleTopic
+        {
+            ModuleId = moduleId
+        };
+    
+        return View(moduleTopic);
     }
 
     [HttpPost]
@@ -102,15 +91,8 @@ public class ModuleTopController : Controller
     {
         if (ModelState.IsValid)
         {
-            //Brukes når vi fikser ModuleController osv.
-            /*var module = await _DbContext.Modules.FirstOrDefaultAsync(m => m.ModuleName == moduleTopic.Module.ModuleName);
-
-            if (module != null)
-            {*/
-
-            //ModulId = nullable og satt til 1 inntil andre Modules inkluderes
-            moduleTopic.ModuleId = 1;
-                
+        
+            
             await _moduleRepository.Create(moduleTopic);
                 return RedirectToAction(nameof(Table));
         }

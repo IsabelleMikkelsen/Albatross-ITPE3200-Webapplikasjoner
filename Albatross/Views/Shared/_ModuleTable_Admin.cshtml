@@ -11,9 +11,17 @@
     </td></summary>
         
         <p>(a)ATaskName
+        @if(@ModuleTopic.ModuleTopicId == 114 || @ModuleTopic.ModuleTopicId == 115 ){
+        
+        <a class="btn btn-outline-secondary" asp-action="Update" asp-route-id="">Update</a>
+        <a class="btn btn-custom-danger disabled">Delete</a>
+        }
+
+        else{
         <a class="btn btn-outline-secondary" asp-action="Update" asp-route-id="@ModuleTopic.ModuleTopicId">Update</a>
         <a class="btn btn-custom-danger" asp-action="Delete" asp-route-id="@ModuleTopic.ModuleTopicId">Delete</a>
-        
+        }
+
         </p>
         <p>
         <a class="btn btn-secondary"

@@ -48,6 +48,8 @@ public class ModuleTopController : Controller
         {
             return NotFound();
         }
+
+
         return View(moduleTopic);
     }
 
@@ -106,11 +108,18 @@ public class ModuleTopController : Controller
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Delete(int id)
     {
+
         var moduleTopic = await _moduleRepository.GetModuleTopicById(id);
         if (moduleTopic == null)
         {
             return NotFound();
         }
+
+        if (id == 114 || id == 115)
+        {
+            return BadRequest("Cannot delete demo modules.");
+        }
+    
         return View(moduleTopic);
     }
 

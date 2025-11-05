@@ -9,6 +9,8 @@ namespace Albatross.Models
         public string ModuleName { get; set; } = string.Empty;//Add defualt value
         public string Description { get; set; } = string.Empty; 
         public bool IsLocked { get; set; }
+
+        public ICollection<ModuleTopic> ModuleTopics { get; set; } = new List<ModuleTopic>();
         //public User user { get; set; } = null!; //Null-forgiving operator
 
 

@@ -28,10 +28,22 @@ public class ItemDbContext : IdentityDbContext<User>
     {
         base.OnModelCreating(modelBuilder);
 
-         modelBuilder.Entity<Module>().HasData(
-        new Module { ModuleId = 10, ModuleName = "A1", Description = "Basic Level", IsLocked = false },
-        new Module { ModuleId = 20, ModuleName = "A2", Description = "Finish Level A1", IsLocked = true },
-        new Module { ModuleId = 30, ModuleName = "B1", Description = "Finish Level A2", IsLocked = true }
+        modelBuilder.Entity<Module>().HasData(
+       new Module { ModuleId = 10, ModuleName = "A1", Description = "Basic Level", IsLocked = false },
+       new Module { ModuleId = 20, ModuleName = "A2", Description = "Finish Level A1", IsLocked = true },
+       new Module { ModuleId = 30, ModuleName = "B1", Description = "Finish Level A2", IsLocked = true }
+   );
+
+        modelBuilder.Entity<ModuleTopic>()
+           .HasOne(mt => mt.Module) // ModuleTopic har en Module
+           .WithMany(m => m.ModuleTopics) // En Module kan ha mange ModuleTopics
+           .HasForeignKey(mt => mt.ModuleId); // Fremmednøkkelen i ModuleTopic peker på ModuleId
+        
+
+        modelBuilder.Entity<ModuleTopic>().HasData(
+            new ModuleTopic { ModuleTopicId = 114, ModuleId = 10, ModuleTopicName = "Demo: Alphabet" },
+            new ModuleTopic { ModuleTopicId = 115, ModuleId = 10, ModuleTopicName = "Demo: Numbers" }
+
     );
     }
 

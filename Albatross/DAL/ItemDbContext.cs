@@ -20,7 +20,7 @@ public class ItemDbContext : IdentityDbContext<User>
 
     public DbSet<Module> Modules { get; set; }
     public DbSet<ModuleTopic> ModuleTopics { get; set; }
-    public DbSet<ATask> ATasks { get; set; }
+    public DbSet<NewQuiz> NewQuizzes { get; set; }
     public DbSet<Question> Questions { get; set; }
     public DbSet<AnswerOption> AnswerOptions { get; set; }
 

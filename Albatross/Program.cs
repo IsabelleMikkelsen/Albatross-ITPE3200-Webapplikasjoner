@@ -30,6 +30,7 @@ builder.Services.AddDbContext<ItemDbContext>(options => {
 //Adding repository pattern
 builder.Services.AddScoped<IItemRepository, ItemRepository>();
 builder.Services.AddScoped<IModuleTopicRepository, ModuleTopicRepository>();
+builder.Services.AddScoped<INewQuizRepository, NewQuizRepository>();
 
 // Legg til Identity
 /*builder.Services.AddIdentity<User, IdentityRole>()

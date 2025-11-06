@@ -1,18 +1,18 @@
 using System;
 namespace Albatross.Models
 {
-    public class ATask
+    public class NewQuiz
     {
-        public int ATaskId { get; set; }
+        public int NewQuizId { get; set; }
+        public string NewQuizName { get; set; }
         public int ModuleTopicId { get; set; }
-        public int QuestionId { get; set; }
+        //public int QuestionId { get; set; }
 
-        public int RewardId { get; set; }
+        //public int RewardId { get; set; }
 
-       //public ModuleTopic ModuleTopic { get; set; }
+        public ModuleTopic? ModuleTopic { get; set; } = null!;
 
-       
-        //public Question Question { get; set; }
+        public Question? Question { get; set; }
         
     }
 }

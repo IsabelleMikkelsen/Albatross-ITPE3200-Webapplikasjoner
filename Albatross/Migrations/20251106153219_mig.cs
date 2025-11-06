@@ -7,18 +7,27 @@
 namespace Albatross.Migrations
 {
     /// <inheritdoc />
-    public partial class NewHardcoded : Migration
+    public partial class mig : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.InsertData(
+                table: "Modules",
+                columns: new[] { "ModuleId", "ModuleName", "userId" },
+                values: new object[,]
+                {
+                    { 8, "Your Quizzes", null },
+                    { 9, "Browse Quizzes", null }
+                });
+
+            migrationBuilder.InsertData(
                 table: "ModuleTopics",
                 columns: new[] { "ModuleTopicId", "ModuleId", "ModuleTopicName" },
                 values: new object[,]
                 {
-                    { 114, 10, "Demo: Alphabet" },
-                    { 115, 10, "Demo: Numbers" }
+                    { 118, 8, "Demo: Words and phrases" },
+                    { 119, 8, "Demo: Nature" }
                 });
         }
 
@@ -28,12 +37,22 @@ namespace Albatross.Migrations
             migrationBuilder.DeleteData(
                 table: "ModuleTopics",
                 keyColumn: "ModuleTopicId",
-                keyValue: 114);
+                keyValue: 118);
 
             migrationBuilder.DeleteData(
                 table: "ModuleTopics",
                 keyColumn: "ModuleTopicId",
-                keyValue: 115);
+                keyValue: 119);
+
+            migrationBuilder.DeleteData(
+                table: "Modules",
+                keyColumn: "ModuleId",
+                keyValue: 9);
+
+            migrationBuilder.DeleteData(
+                table: "Modules",
+                keyColumn: "ModuleId",
+                keyValue: 8);
         }
     }
 }

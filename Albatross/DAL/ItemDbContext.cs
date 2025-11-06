@@ -24,14 +24,13 @@ public class ItemDbContext : IdentityDbContext<User>
     public DbSet<Question> Questions { get; set; }
     public DbSet<AnswerOption> AnswerOptions { get; set; }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+   protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<Module>().HasData(
-       new Module { ModuleId = 10, ModuleName = "A1", Description = "Basic Level", IsLocked = false },
-       new Module { ModuleId = 20, ModuleName = "A2", Description = "Finish Level A1", IsLocked = true },
-       new Module { ModuleId = 30, ModuleName = "B1", Description = "Finish Level A2", IsLocked = true }
+       new Module { ModuleId = 8, ModuleName = "Your Quizzes" },
+       new Module { ModuleId = 9, ModuleName = "Browse Quizzes" }
    );
 
         modelBuilder.Entity<ModuleTopic>()
@@ -41,8 +40,8 @@ public class ItemDbContext : IdentityDbContext<User>
         
 
         modelBuilder.Entity<ModuleTopic>().HasData(
-            new ModuleTopic { ModuleTopicId = 114, ModuleId = 10, ModuleTopicName = "Demo: Alphabet" },
-            new ModuleTopic { ModuleTopicId = 115, ModuleId = 10, ModuleTopicName = "Demo: Numbers" }
+            new ModuleTopic { ModuleTopicId = 118, ModuleId = 8, ModuleTopicName = "Demo: Words and phrases" },
+            new ModuleTopic { ModuleTopicId = 119, ModuleId = 8, ModuleTopicName = "Demo: Nature" }
 
     );
     }

@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Albatross.Migrations
 {
     [DbContext(typeof(ItemDbContext))]
-    [Migration("20251106141857_NewName_NewQuiz")]
-    partial class NewName_NewQuiz
+    [Migration("20251106153219_mig")]
+    partial class mig
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -95,47 +95,29 @@ namespace Albatross.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsLocked")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("ModuleName")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("UserId")
+                    b.Property<string>("userId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("ModuleId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("userId");
 
                     b.ToTable("Modules");
 
                     b.HasData(
                         new
                         {
-                            ModuleId = 10,
-                            Description = "Basic Level",
-                            IsLocked = false,
-                            ModuleName = "A1"
+                            ModuleId = 8,
+                            ModuleName = "Your Quizzes"
                         },
                         new
                         {
-                            ModuleId = 20,
-                            Description = "Finish Level A1",
-                            IsLocked = true,
-                            ModuleName = "A2"
-                        },
-                        new
-                        {
-                            ModuleId = 30,
-                            Description = "Finish Level A2",
-                            IsLocked = true,
-                            ModuleName = "B1"
+                            ModuleId = 9,
+                            ModuleName = "Browse Quizzes"
                         });
                 });
 
@@ -161,15 +143,15 @@ namespace Albatross.Migrations
                     b.HasData(
                         new
                         {
-                            ModuleTopicId = 114,
-                            ModuleId = 10,
-                            ModuleTopicName = "Demo: Alphabet"
+                            ModuleTopicId = 118,
+                            ModuleId = 8,
+                            ModuleTopicName = "Demo: Words and phrases"
                         },
                         new
                         {
-                            ModuleTopicId = 115,
-                            ModuleId = 10,
-                            ModuleTopicName = "Demo: Numbers"
+                            ModuleTopicId = 119,
+                            ModuleId = 8,
+                            ModuleTopicName = "Demo: Nature"
                         });
                 });
 
@@ -186,14 +168,12 @@ namespace Albatross.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("QuestionId")
+                    b.Property<int>("QuestionId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("NewQuizId");
 
                     b.HasIndex("ModuleTopicId");
-
-                    b.HasIndex("QuestionId");
 
                     b.ToTable("NewQuizzes");
                 });
@@ -224,6 +204,9 @@ namespace Albatross.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<int?>("NewQuizId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Options")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -233,6 +216,8 @@ namespace Albatross.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("NewQuizId");
 
                     b.ToTable("Questions");
                 });
@@ -464,9 +449,11 @@ namespace Albatross.Migrations
 
             modelBuilder.Entity("Albatross.Models.Module", b =>
                 {
-                    b.HasOne("Albatross.Models.User", null)
+                    b.HasOne("Albatross.Models.User", "user")
                         .WithMany("Modules")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("userId");
+
+                    b.Navigation("user");
                 });
 
             modelBuilder.Entity("Albatross.Models.ModuleTopic", b =>
@@ -486,13 +473,7 @@ namespace Albatross.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Albatross.Models.Question", "Question")
-                        .WithMany()
-                        .HasForeignKey("QuestionId");
-
                     b.Navigation("ModuleTopic");
-
-                    b.Navigation("Question");
                 });
 
             modelBuilder.Entity("Albatross.Models.Player", b =>
@@ -502,6 +483,13 @@ namespace Albatross.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Albatross.Models.Question", b =>
+                {
+                    b.HasOne("Albatross.Models.NewQuiz", null)
+                        .WithMany("Questions")
+                        .HasForeignKey("NewQuizId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -568,6 +556,11 @@ namespace Albatross.Migrations
             modelBuilder.Entity("Albatross.Models.ModuleTopic", b =>
                 {
                     b.Navigation("NewQuizzes");
+                });
+
+            modelBuilder.Entity("Albatross.Models.NewQuiz", b =>
+                {
+                    b.Navigation("Questions");
                 });
 
             modelBuilder.Entity("Albatross.Models.User", b =>

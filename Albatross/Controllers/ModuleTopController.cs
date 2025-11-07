@@ -115,7 +115,7 @@ public class ModuleTopController : Controller
             return NotFound();
         }
 
-        if (id == 114 || id == 115)
+        if (id == 118 || id == 119)
         {
             return BadRequest("Cannot delete demo modules.");
         }

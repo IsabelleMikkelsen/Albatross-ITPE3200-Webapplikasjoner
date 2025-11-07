@@ -11,34 +11,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Albatross.Migrations
 {
     [DbContext(typeof(ItemDbContext))]
-    [Migration("20251103135244_MakeModuleIdNullable2")]
-    partial class MakeModuleIdNullable2
+    [Migration("20251106152946_NewMig")]
+    partial class NewMig
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.21");
-
-            modelBuilder.Entity("Albatross.Models.ATask", b =>
-                {
-                    b.Property<int>("ATaskId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("ModuleTopicId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("QuestionId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("RewardId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("ATaskId");
-
-                    b.ToTable("ATasks");
-                });
 
             modelBuilder.Entity("Albatross.Models.Admin", b =>
                 {
@@ -115,9 +95,6 @@ namespace Albatross.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("ModuleLevel")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("ModuleName")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -152,6 +129,29 @@ namespace Albatross.Migrations
                     b.ToTable("ModuleTopics");
                 });
 
+            modelBuilder.Entity("Albatross.Models.NewQuiz", b =>
+                {
+                    b.Property<int>("NewQuizId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ModuleTopicId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("NewQuizName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("QuestionId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("NewQuizId");
+
+                    b.HasIndex("ModuleTopicId");
+
+                    b.ToTable("NewQuizzes");
+                });
+
             modelBuilder.Entity("Albatross.Models.Player", b =>
                 {
                     b.Property<int>("PlayerId")
@@ -178,6 +178,9 @@ namespace Albatross.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<int?>("NewQuizId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Options")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -187,6 +190,8 @@ namespace Albatross.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("NewQuizId");
 
                     b.ToTable("Questions");
                 });
@@ -428,10 +433,21 @@ namespace Albatross.Migrations
             modelBuilder.Entity("Albatross.Models.ModuleTopic", b =>
                 {
                     b.HasOne("Albatross.Models.Module", "Module")
-                        .WithMany()
+                        .WithMany("ModuleTopics")
                         .HasForeignKey("ModuleId");
 
                     b.Navigation("Module");
+                });
+
+            modelBuilder.Entity("Albatross.Models.NewQuiz", b =>
+                {
+                    b.HasOne("Albatross.Models.ModuleTopic", "ModuleTopic")
+                        .WithMany("NewQuizzes")
+                        .HasForeignKey("ModuleTopicId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ModuleTopic");
                 });
 
             modelBuilder.Entity("Albatross.Models.Player", b =>
@@ -441,6 +457,13 @@ namespace Albatross.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Albatross.Models.Question", b =>
+                {
+                    b.HasOne("Albatross.Models.NewQuiz", null)
+                        .WithMany("Questions")
+                        .HasForeignKey("NewQuizId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -497,6 +520,21 @@ namespace Albatross.Migrations
             modelBuilder.Entity("Albatross.Models.Item", b =>
                 {
                     b.Navigation("Inventories");
+                });
+
+            modelBuilder.Entity("Albatross.Models.Module", b =>
+                {
+                    b.Navigation("ModuleTopics");
+                });
+
+            modelBuilder.Entity("Albatross.Models.ModuleTopic", b =>
+                {
+                    b.Navigation("NewQuizzes");
+                });
+
+            modelBuilder.Entity("Albatross.Models.NewQuiz", b =>
+                {
+                    b.Navigation("Questions");
                 });
 
             modelBuilder.Entity("Albatross.Models.User", b =>

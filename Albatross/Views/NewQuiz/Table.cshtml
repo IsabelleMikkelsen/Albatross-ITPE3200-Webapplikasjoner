@@ -1,0 +1,38 @@
+@using Albatross.ViewModels
+
+@model NewQuizViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <!--Får ikke koblet til adminbutton.cs -- alt for rød se moduletop table--->
+    <link rel="stylesheet" href="~/css/adminbutton.css" />
+</head>
+<body>
+    <div class="container">
+        <!-- Viser admin-tabellen -->
+       @* @await Html.PartialAsync("_ItemTable_Admin", Model.Items) *@
+
+        <!-- Spiller-tabell -->
+        <h3>Player Quiz tasks table</h3>
+        <table class="table table-striped">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Images</th>
+            </tr>
+            @foreach (var newQuiz in Model.NewQuizzes)
+            {
+                <tr>
+                    <td>@newQuiz.NewQuizName</td>
+                    
+                </tr>
+            }
+        </table>
+    </div>
+</body>
+</html>

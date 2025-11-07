@@ -5,7 +5,7 @@
 namespace Albatross.Migrations
 {
     /// <inheritdoc />
-    public partial class MakeModuleIdNullable : Migration
+    public partial class NewMig : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
